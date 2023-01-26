@@ -1,15 +1,25 @@
-import PropTypes from "prop-types";
 import React from "react";
 import css from './Notification.module.css';
 
-const Notification = ({ message }) => {
+
+export default function Notification ({message}) {
   return (
     <h2 className={css.message}>{message}</h2>
   )
 };
 
-Notification.propTypes = {
-  message: PropTypes.string.isRequired
-};
+// import PropTypes from "prop-types";
+// const Notification = ({ message }) => {
+//   return (
+//     <h2 className={css.message}>{message}</h2>
+//   )
+// };
 
-export default Notification;
+// Notification.propTypes = {
+//   message: PropTypes.string.isRequired
+// };
+
+// export default Notification;
+
+
+
