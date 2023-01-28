@@ -1,4 +1,4 @@
-import { useState, useEffect }  from "react";
+import { useState }  from "react";
 import Section from "../Section/Section";
 import FeedbackOptions from "../FeedbackOptions/FeedbackOptions";
 import Statistics from "../Statistics/Statistics";
@@ -14,31 +14,44 @@ export default function App () {
   const totalFeedBack = good + neutral + bad;
   const positivePercent = Math.round( good / totalFeedBack * 100);
 
-	const leaveFeedback = name => {
-		prevState => {
-				return { [name]: prevState[name] + 1};
+	const leaveFeedBack = name => {
+		prevState => { 
+      switch(name) {
+        case "good":
+          setGood(prevState.good + 1);
+          break;
+
+        case "neutral":
+          setNeutral(prevState.neutral + 1);
+          break;
+        
+        case "bad":
+          setBad(prevState.bad + 1);
+          break;
+      
+        default: 
+          return;
+      }
 		};
 	};
     
-	
-
-    return (
+  return (
       <div className={css.container}>
         <Section title="Please leave feedback">
           <FeedbackOptions 
-            options={Object.keys(this.state)}
-            onLeaveFeedback={this.leaveFeedback}
+            options={Object.keys({good, neutral, bad})}
+            onLeaveFeedback={leaveFeedBack}
           />
         </Section>
           
-        { this.countTotalFeedback() > 0 
+        { totalFeedBack > 0 
         ? (<Section title="Statistics">
             <Statistics 
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.bad}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()} 
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={totalFeedBack}
+              positivePercentage={positivePercent} 
             />
         </Section>)
         : ( <Notification message="There is no feedback" /> )  
